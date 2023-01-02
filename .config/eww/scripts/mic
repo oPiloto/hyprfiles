@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# @requires: pactl
+
+is_muted () {
+  pactl get-source-mute @DEFAULT_SOURCE@ | awk '{ print $2 }'
+}
+
+get_percentage () {
+  local muted=$(is_muted)
+  if [[ $muted == 'yes' ]]; then
+    echo "Muted"
+  else
+    per=$(pactl list sources | grep '^[[:space:]]Volume:' | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
+    echo "${per}"
+  fi
+}
+
+
+if [[ $1 == "status" ]]; then
+  pactl get-source-mute @DEFAULT_SOURCE@ | awk '{ print $2 }'
+fi
+
+if [[ $1 == "toggle" ]]; then
+  pactl set-source-mute @DEFAULT_SOURCE@ toggle
+fi
+
+if [[ $1 == "set" ]]; then
+  val=$(echo $2 | tr '.' ' ' | awk '{ print $1 }')
+  if test $val -gt 100; then
+    val=100
+  fi
+    pactl set-source-volume @DEFAULT_SOURCE@ $val%
+fi
+
+if [[ $1 == "vol" ]]; then
+  get_percentage
+fi

@@ -1,0 +1,26 @@
+.powermenu {
+  background-color: $bg;
+  color: $fg;
+  padding: 20px;
+  font-family: "Font Awesome 6 Free";
+  font-size: 70px;
+  border-radius: 8px;
+  button {
+    border-radius: 12px;
+    transition: all ease .2s;
+    &:hover { background-color: $bgSecondary; }
+    &:active { background-color: $bg; }
+    .content {
+      border-radius: 8px;
+      padding: 0px 5px 0px 5px;
+    }
+  }
+  .shutdown { color: $red; }
+  .reboot { color: $yellow; }
+  .suspend{ color: $blue; }
+  .lockscreen { color: $green; }
+}
+
+.powermenu-clickhandler {
+  background-color: rgb(0, 0, 0);
+}

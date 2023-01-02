@@ -1,0 +1,13 @@
+mode=drun
+show_all=true
+insensitive=true
+allow_images=true
+width=500
+height=600
+image_size=40
+term=alacritty
+hide_scroll=false
+content_halign=center
+content_valign=center
+xoffset=710
+yoffset=240

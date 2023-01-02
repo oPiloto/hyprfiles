@@ -1,0 +1,153 @@
+(defwidget workspcbtn []
+  (box :class "workbtn")
+)
+
+(defwidget workspaces []
+  (box :class "workspacesbox"
+       :orientation "h"
+       :space-evenly false
+       :valign "center"
+    (literal :content "${workspaces}")
+  )
+)
+(deflisten workspaces "~/.config/eww/scripts/workspaces")
+
+(defwidget left []
+  (box :class "left"
+       :orientation "h"
+       :space-evenly false
+       :halign "start"
+    (workspaces)
+  )
+)
+
+(defwidget bardate []
+  (box :class "bardatebox"
+       :orientation "h"
+       :space-evenly true
+    (button :onclick "eww -c ~/.config/eww open --toggle date" date)
+  )
+)
+
+(defwidget center []
+  (box :class "left"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+       :valign "center"
+    (bardate)
+  )
+)
+
+(defwidget powerbutton []
+  (button :class "powerbutton"
+          :onclick "eww -c ~/.config/eww open-many --toggle powermenu-clickhandler powermenu"
+    "⏻"
+  )
+)
+
+(defwidget icon-module [icon ?class ?visible ?tooltip]
+  (box :class "${class} icon-module"
+       :orientation "h"
+       :halign "center"
+       :space-evenly false
+       :visible {visible ?: true} ; because the argument is optional
+       :tooltip {tooltip ?: true}
+    (label :class "icon-module__icon" :text "${icon} ")
+    (children)
+  )
+)
+
+(defwidget ram []
+  (icon-module :class "ram"
+               :icon ""
+               :tooltip "Ram"
+               :visible {EWW_RAM.used_mem_perc != ""}
+    (label :text "${round(EWW_RAM.used_mem_perc, 0)}%")
+  )
+)
+
+(defwidget cpu []
+  (icon-module :class "cpu"
+               :icon ""
+               :tooltip "Cpu"
+    (label :text "${round(EWW_CPU.avg, 0)}%")
+  )
+)
+
+(defwidget temp []
+  (icon-module :class "temp"
+               :icon ""
+               :tooltip "Temperature"
+    (label :text "${round(EWW_TEMPS.K10TEMP_TCTL, 0)}%") ;; here you put your processor name, your can  see it running eww state
+  )
+)
+
+(defwidget disk []
+  (icon-module :class "disk"
+               :icon ""
+               :tooltip "Disk Used"
+    (label :text "${round(EWW_DISK["/"].used_perc, 0)}%")
+  )
+)
+
+(defwidget metrics []
+  (box :orientation "h"
+       :spacing 10
+       :space-evenly false
+       :class "metrics"
+    (ram)
+    (cpu)
+    (temp)
+    (disk)
+  )
+)
+
+(defwidget actionsbox []
+  (button :class "actionsbox" :onclick "eww -c ~/.config/eww open --toggle actions"
+    (box :orientation "h"
+         :space-evenly false
+         :spacing 13
+      ; margin are used to fix issues with nerd fonts widths :/
+      (label :text "${network_icon}" :style "margin-right: ${network_status == 'Connected' ? '3px' : '0px'};")
+      (label :text "${network_radio == 'on' ? '' : ''}")
+      (label :text "${volume_icon}")
+      (label :text "${bluetooth_state == 'on' ? '' : ''}")
+      (label :text "${mic_status == 'no' ? '' : ''}")
+    )
+  )
+)
+
+(defwidget right []
+  (box :class "left"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+    (metrics)
+    (actionsbox)
+    (powerbutton)
+  )
+)
+
+(defwidget bar []
+  (box :class "bar"
+       :orientation "h"
+       :space-evenly true
+    (left)
+    (center)
+    (right)
+  )
+)
+
+(defwindow bar
+  :geometry (geometry :x "0"
+                      :y "0"
+                      :width "100%"
+                      :height "38px"
+                      :anchor "center top")
+  :type "dock"
+  :reserve (struts :distance "38px" :side "top")
+  :monitor 0
+  :wm-ignore false
+  :exclusive true
+(bar))

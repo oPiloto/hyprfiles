@@ -1,0 +1,17 @@
+sort=-time
+layer=overlay
+background-color=#0D0F18
+width=310
+height=120
+border-radius=8
+max-icon-size=80
+default-timeout=4000
+ignore-timeout=1
+margin=20
+padding=10
+font=ProductSans 13
+border-color=#B3B9B8
+
+[urgency=high]
+border-color=#E57474
+default-timeout=0

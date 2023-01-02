@@ -1,0 +1,83 @@
+.bar {
+  background-color: $bg;
+  color: $fg;
+}
+
+.works {
+  background-color: $black;
+  border-radius: 8px;
+  margin-left: 10px;
+  padding: 0px 8px;
+
+  .btn {
+    border-radius: 50%;
+    margin: 6px;
+    &:hover {
+      box-shadow: 0 0 0.3rem $blue;
+      transition: 0.3s;
+    }
+  }
+
+  .workbtn {
+    background: $dimblack;
+    border-radius: 50%;
+    padding: 7.5px;
+  }
+
+  .i {
+    .workbtn {
+      background: $dimblack;
+    }
+  }
+  .i1, .i2, .i3, .i4, .i5, .i6, .i7, .i8, .i9, .i10 {
+    .workbtn {
+      background: white;
+    }
+  }
+  .i11, .i22, .i33, .i44, .i55, .i66, .i77, .i88, .i99, .i10 {
+    .workbtn {
+      background: $blue;
+    }
+  }
+}
+
+.bardatebox {
+  font-family: Product Sans;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.metrics {
+  margin-right: 5px;
+  .icon-module {
+    border-radius: 8px;
+    background-color: $black;
+    padding: 0px 7px;
+    margin: 6px 0px;
+    font-family: "Product Sans";
+    font-size: 1.2em;
+  }
+
+  .icon-module__icon {
+    font-family: "Font Awesome 6 Free";
+    font-size: 1.1em;
+  }
+}
+
+.actionsbox {
+  font-family: Symbols Nerd Font;
+  font-size: 16px;
+  margin: 0px 10px;
+}
+
+.powerbutton {
+  color: $red;
+  background-color: $black;
+  margin: 6px 10px 6px 0px;
+  padding: 0px 6px 0px 6px;
+  font-family: Symbols Nerd Font;
+  border-radius: 8px;
+  transition: all ease .2s;
+  &:hover { background-color: $dimblack; }
+  &:active { background-color: $black; }
+}
